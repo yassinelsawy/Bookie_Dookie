@@ -28,3 +28,12 @@ class GetBook(APIView):
             books = Book.objects.all()  # Retrieve all books if no ID is provided
             serializer = GetBookSerializer(books, many=True)
             return Response(serializer.data, status=200)
+
+class DeleteBook(APIView):
+    def delete(self, request, *args, **kwargs):
+        book_id = request.query_params.get('id')  # Get the book ID from query parameters
+        if book_id:
+            book = get_object_or_404(Book, id=book_id)  # Retrieve the book by ID
+            book.delete()  # Delete the book
+            return Response({"message": "Book deleted successfully"}, status=200)
+        return Response({"error": "Book ID not provided"}, status=400)
