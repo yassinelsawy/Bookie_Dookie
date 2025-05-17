@@ -9,4 +9,5 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True)
-    # borrowed_books = models.ManyToManyField()
+    borrowed_books = models.ManyToManyField('Book', related_name='borrowed_by', blank=True)
+    wishlist = models.ManyToManyField('Book', related_name='wishlisted_by', blank=True)

@@ -37,3 +37,15 @@ class DeleteBook(APIView):
             book.delete()  # Delete the book
             return Response({"message": "Book deleted successfully"}, status=200)
         return Response({"error": "Book ID not provided"}, status=400)
+
+class EditBook(APIView):
+    def put(self, request, *args, **kwargs):
+        book_id = request.query_params.get('id')  # Get the book ID from query parameters
+        if book_id:
+            book = get_object_or_404(Book, id=book_id)  # Retrieve the book by ID
+            serializer = AddBookSerializer(book, data=request.data)
+            if serializer.is_valid():
+                serializer.save()  # Save the updated book
+                return Response({"message": "Book updated successfully"}, status=200)
+            return Response(serializer.errors, status=400)
+        return Response({"error": "Book ID not provided"}, status=400)
