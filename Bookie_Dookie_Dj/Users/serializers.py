@@ -11,3 +11,13 @@ class signUpSerializer(serializers.ModelSerializer):
         user.is_staff = is_staff
         user.save()
         return user
+
+class UserBorrow:
+    class Meta:
+        model = User
+        fields = ['borrowed_books']
+
+class UserWishlist:
+    class Meta:
+        model = User
+        fields = ['wishlist']
