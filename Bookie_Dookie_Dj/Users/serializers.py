@@ -6,7 +6,7 @@ class signUpSerializer(serializers.ModelSerializer):
         fields = ['first_name', 'last_name', 'email', 'username', 'password', 'is_staff']
 
     def create(self, validated_data):
-        is_staff = validated_data.pop('is_staff', False)
+        is_staff = validated_data.pop('is_staff')
         user = User.objects.create_user(**validated_data)
         user.is_staff = is_staff
         user.save()
@@ -17,7 +17,3 @@ class UserBorrow:
         model = User
         fields = ['borrowed_books']
 
-class UserWishlist:
-    class Meta:
-        model = User
-        fields = ['wishlist']
