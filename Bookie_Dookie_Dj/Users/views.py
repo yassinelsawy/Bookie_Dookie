@@ -1,4 +1,5 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import AllowAny
@@ -33,6 +34,22 @@ class Login(APIView):
             return Response({"message": "Login successful", "is_staff": user.is_staff}, status=201)
         else:
             return Response({"error": "Invalid credentials"}, status=401)
+
+class GetUserRole(APIView):
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        if user.is_authenticated:
+
+            return Response({"is_staff": user.is_staff}, status=200)
+        else:
+            return Response({"error": "User not authenticated"}, status=401)
+
+class LogOut(APIView):
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        return Response({"message": "Logout successful"}, status=200)
+
+
 
 # Borrow Requests
 class GetBorrowings(APIView):
@@ -73,7 +90,11 @@ class BorrowBook(APIView):
             return Response({"error": "Book is not available"}, status=400)
 # Wishlist
 class Wishlist(APIView):
+    permission_classes = [AllowAny]
     def get(self, request, *args, **kwargs):
+        if isinstance(request.user, AnonymousUser):
+            # Handle anonymous user
+            return Response([], status=200)
         user = request.user
         wishlist = user.wishlist.all()
         serializer = GetBookSerializer(wishlist, many=True)

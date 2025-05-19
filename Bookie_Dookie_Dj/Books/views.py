@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -18,10 +19,13 @@ class AddBook(APIView):
 
 
 class GetBook(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request, *args, **kwargs):
-        book_id = request.query_params.get('id')  # Get the book ID from query parameters
+        book_id = request.query_params.get('book_id')  # Get the book ID from query parameters
+        print(book_id)
         if book_id:
-            book = get_object_or_404(Book, id=book_id)  # Retrieve the book by ID
+            book = Book.objects.filter(id=book_id).first()
             serializer = GetBookSerializer(book)
             return Response(serializer.data, status=200)
         else:
@@ -31,7 +35,7 @@ class GetBook(APIView):
 
 class DeleteBook(APIView):
     def delete(self, request, *args, **kwargs):
-        book_id = request.query_params.get('id')  # Get the book ID from query parameters
+        book_id = request.query_params.get('book_id')  # Get the book ID from query parameters
         if book_id:
             book = get_object_or_404(Book, id=book_id)  # Retrieve the book by ID
             book.delete()  # Delete the book
@@ -40,7 +44,7 @@ class DeleteBook(APIView):
 
 class EditBook(APIView):
     def put(self, request, *args, **kwargs):
-        book_id = request.query_params.get('id')  # Get the book ID from query parameters
+        book_id = request.query_params.get('book_id')  # Get the book ID from query parameters
         if book_id:
             book = get_object_or_404(Book, id=book_id)  # Retrieve the book by ID
             serializer = AddBookSerializer(book, data=request.data)

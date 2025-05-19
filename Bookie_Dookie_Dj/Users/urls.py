@@ -2,11 +2,13 @@
 from django.urls import path
 from . import views
 from Users.views import SignUp, Login, Wishlist, AddToWishlist, \
-    RemoveFromWishlist, GetBorrowings, BorrowBook, ReturnBook
+    RemoveFromWishlist, GetBorrowings, BorrowBook, ReturnBook, GetUserRole, LogOut
 
 urlpatterns = [
 path('login/', Login.as_view(), name='login'),
 path('signup/', SignUp.as_view(), name='signup'),
+path('logout/', LogOut.as_view(), name='logout'),
+path('get_user_role/', GetUserRole.as_view(), name='get_user_role'),
 
 path('get_borrow/', GetBorrowings.as_view(), name='get_borrow'),
 path('borrow/', BorrowBook.as_view(), name='borrow'),
