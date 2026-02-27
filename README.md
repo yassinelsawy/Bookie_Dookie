@@ -6,13 +6,49 @@ A full-featured **Library Management System** back-end built with **Django 5.2**
 
 ## Table of Contents
 
-1. [Tech Stack](#tech-stack)  
-2. [Project Architecture](#project-architecture)  
-3. [Django & DRF Features Used](#django--drf-features-used)  
-4. [Database Design & Schema](#database-design--schema)  
-5. [API Endpoints](#api-endpoints)  
-6. [Feature Examples](#feature-examples)  
-7. [Getting Started](#getting-started)  
+1. [Getting Started](#getting-started)  
+2. [Tech Stack](#tech-stack)  
+3. [Project Architecture](#project-architecture)  
+4. [Django & DRF Features Used](#django--drf-features-used)  
+5. [Database Design & Schema](#database-design--schema)  
+6. [API Endpoints](#api-endpoints)  
+7. [Feature Examples](#feature-examples)  
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.10+
+- pip
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/Bookie_Dookie.git
+cd Bookie_Dookie/Bookie_Dookie_Dj
+
+# Create a virtual environment
+python -m venv venv
+source venv/bin/activate        # Linux/macOS
+venv\Scripts\activate           # Windows
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run database migrations
+python manage.py migrate
+
+# Create a superuser (admin)
+python manage.py createsuperuser
+
+# Start the development server
+python manage.py runserver
+```
+
+The API will be available at `http://127.0.0.1:8000/`.
 
 ---
 
@@ -498,42 +534,6 @@ Cookie: sessionid=admin123...
     }
 ]
 ```
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- Python 3.10+
-- pip
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/your-username/Bookie_Dookie.git
-cd Bookie_Dookie/Bookie_Dookie_Dj
-
-# Create a virtual environment
-python -m venv venv
-source venv/bin/activate        # Linux/macOS
-venv\Scripts\activate           # Windows
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run database migrations
-python manage.py migrate
-
-# Create a superuser (admin)
-python manage.py createsuperuser
-
-# Start the development server
-python manage.py runserver
-```
-
-The API will be available at `http://127.0.0.1:8000/`.
 
 ---
 
